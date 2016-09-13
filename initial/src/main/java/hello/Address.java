@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Address {
@@ -15,7 +18,9 @@ public class Address {
   private String city;
   private String state;
   private String country;
-  private Long userId;
+  @ManyToOne
+	@JoinColumn(name="userId", nullable=false)
+ 	private Long userId;
 
   protected Address() {}
 
@@ -55,14 +60,14 @@ public class Address {
     this.userId = userId;
   }
 
-  public Long getUserId() {
+   public Long getUserId() {
     return this.userId;
   }
 
   @Override
   public String toString() {
   return String.format(
-                "Address[id = %d, street = '%s', city = '%s', state = '%s', country = '%s']",
+                " Address[id = %d, street = '%s', city = '%s', state = '%s', country = '%s']",
                 id, street, city, state, country);
     }
 

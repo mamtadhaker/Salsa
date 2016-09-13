@@ -30,13 +30,13 @@ public class Application {
 			// fetch all users
 			log.info("Users found with findAll():");
 			log.info("-------------------------------");
-			for (User user : repository.findAll()) {
-				log.info(user.toString());
-			}
+			//for (User user : repository.findAll()) {
+			//	log.info(user.toString());
+			//}
       log.info("");
 
 			// fetch an individual User by ID
-			User user = repository.findOne(1L);
+			/*User user = repository.findOne(1L);
 			log.info("user found with findOne(1L):");
 			log.info("--------------------------------");
 			log.info(user.toString());
@@ -48,7 +48,7 @@ public class Application {
 			for (User bauer : repository.findByLastName("Bauer")) {
 				log.info(bauer.toString());
 			}
-      log.info("");
+      log.info("");*/
 		};
 	}
 

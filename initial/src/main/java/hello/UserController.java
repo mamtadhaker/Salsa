@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequestMapping("/users")
 public class UserController {
   @Autowired UserRepository repository;
-  @Autowired AddressRepository addressRepository;
   
   private static final Logger log = LoggerFactory.getLogger(Application.class);
              
   @RequestMapping
+  @ResponseBody
   public List<User> index() {
-    return repository.findAll();
+     List<User> users = repository.findAll();
+    // return users.toString();
+    return users;
   }
   
   @RequestMapping(method = RequestMethod.POST)
@@ -33,12 +36,12 @@ public class UserController {
 			log.info(user.toString());
     	log.info("Address :");
 			log.info("--------------------------------");
-			log.info(user.getAddress().toString());
+			log.info(user.getAddresses().toString());
   
-    Address address = addressRepository.save(user.getAddress());
+    //List<Address> address = addressRepository.save(user.getAddress());
     user = repository.save(user);
-    address.setUserId(user.getId());
-    addressRepository.save(address);
+    // address.setUserId(user.getId());
+    // addressRepository.save(address);
     return user;
   }
 

@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import java.util.*;
+import javax.persistence.CascadeType;
 
 @Entity
 public class User {
@@ -15,8 +17,8 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @OneToOne
-    private Address address;
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Address> addresses;
 
     protected User() {}
 
@@ -45,19 +47,22 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Address getAddress() {
-        return this.address;
+    public List<Address> getAddresses() {
+        return this.addresses;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+         this.addresses = addresses;
     }
 
     @Override
     public String toString() {
-        return String.format(
-                "User[id = %d, firstName = '%s', lastName = '%s']",
-                id, firstName, lastName);
+        if(this.getAddresses() != null){
+            return "\n User:[id: "+id+" firstName: "+firstName+" lastName: "+lastName+" address: "+addresses;
+        }
+        else {
+            return "\n User:[id: "+id+" firstName: "+firstName+" lastName: "+lastName;
+        } 
     }
 
 }
